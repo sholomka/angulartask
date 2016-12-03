@@ -1,0 +1,37 @@
+<customer-add (create)="add($event)"></customer-add>
+<customer-list (onDelete)="setID($event)" [customers]="customers" [model]="model"></customer-list>
+<customer-delete (onDelete)="delete($event)" [id]="id"></customer-delete>
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">x</button>
+                <h4 class="modal-title" id="myModalLabel">Save password</h4>
+            </div>
+            <div class="modal-body">
+                <form #formRef="ngForm">
+                    <div class="form-group" [ngClass]="showError(labelRef).cssClass">
+                    <label class="control-label" for="label">Label:</label>
+                    <input type="text" required class="form-control" id="label" name="label" [(ngModel)]="model.label" #labelRef="ngModel">
+                    <div class="help-block" *ngIf="labelRef.touched">{{showError(labelRef).text}}</div>
+                    </div>
+                    <div class="form-group" [ngClass]="showError(passwordRef).cssClass">
+                        <label class="control-label" for="password">Password:</label>
+                        <input type="password" required class="form-control" id="password" name="password" [(ngModel)]="model.password" #passwordRef="ngModel">
+                        <div class="help-block" *ngIf="passwordRef.touched">{{showError(passwordRef).text}}</div>
+                    </div>
+                    <div class="form-group" [ngClass]="showError(descriptionRef).cssClass">
+                        <label class="control-label" for="description">Description:</label>
+                        <textarea cols="30" rows="10" required class="form-control" id="description" name="description" [(ngModel)]="model.description" #descriptionRef="ngModel"></textarea>
+                        <div class="help-block" *ngIf="descriptionRef.touched">{{showError(descriptionRef).text}}</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Back</button>
+                <button class="btn btn-primary" type="submit" (click)="save()" [disabled]="!formRef.valid">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
